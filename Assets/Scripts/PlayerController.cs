@@ -2,7 +2,7 @@
 using CnControls;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IKillable
 {
     [SerializeField]
     private float movementSpeed;
@@ -65,5 +65,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    public void Die()
+    {
+        dropBehaviour.DropItem(piecePrefab, transform.position, Quaternion.identity);
+        // TODO(Anil): PoolManager integration
+        Destroy(gameObject);
+    }
 }

@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4851099470292182}
-  - component: {fileID: 114148886541947052}
-  - component: {fileID: 50790347455364412}
-  - component: {fileID: 114509411722289256}
   - component: {fileID: 58096831553945470}
+  - component: {fileID: 50790347455364412}
+  - component: {fileID: 114148886541947052}
+  - component: {fileID: 114509411722289256}
   m_Layer: 0
   m_Name: Player
   m_TagString: Bomber
