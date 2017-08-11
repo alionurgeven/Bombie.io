@@ -41,7 +41,8 @@ public class IdleAIBehaviour : MonoBehaviour
             // TODO(Anil): PoolManager integration
             Destroy(gameObject);
 
-            // TODO(Anil): Kill bomber
+            IKillable killable = collision.GetComponent<IKillable>();
+            killable.Die();
         }
     }
 
