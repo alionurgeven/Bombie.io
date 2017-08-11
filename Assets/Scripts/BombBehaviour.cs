@@ -53,5 +53,11 @@ public class BombBehaviour : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collided with: " + other.name);
+
+        if (other.CompareTag("IdleAI"))
+        {
+            IKillable killable = other.GetComponent<IKillable>();
+            killable.Die();
+        }
     }
 }

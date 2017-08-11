@@ -3,10 +3,13 @@
 using System.Collections.Generic;
 
 [RequireComponent(typeof(DropBehaviour))]
-public class IdleAIBehaviour : MonoBehaviour
+public class IdleAIBehaviour : MonoBehaviour, IKillable
 {
     [SerializeField]
     private float maxDistanceSqrFromBombers;
+
+    [SerializeField]
+    private GameObject piecePrefab;
 
     private List<Transform> bomberTransforms;
     private Transform bomberToFollow;
@@ -69,5 +72,12 @@ public class IdleAIBehaviour : MonoBehaviour
                 Debug.Log("Bomber entered to the idle ai range.");
             }
         }
+    }
+
+    public void Die()
+    {
+        dropBehaviour.DropItem(piecePrefab, transform.position, Quaternion.identity);
+        // TODO(Anil): PoolManager integration
+        Destroy(gameObject);
     }
 }
