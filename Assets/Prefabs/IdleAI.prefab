@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3b7a2c7d052064fb1ac77dfa2a71ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistanceSqrFromBombers: 5
+  maxDistanceSqrFromBombers: 7
 --- !u!212 &212630086119085164
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -162,7 +162,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 60854140ea18f384d985b590bf24fde0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

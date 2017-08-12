@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using CnControls;
+using UnityEngine.UI;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -10,15 +12,27 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     private DropBehaviour dropBehaviour;
     private Player playerRef;
+    private IScoreBehavior playerScoreBehaviour;
 
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         dropBehaviour = GetComponent<DropBehaviour>();
         playerRef = GetComponent<Player>();
+        playerScoreBehaviour = GetComponent<IScoreBehavior>();
     }
 
+    private void OnEnable()
+    {
+        movementSpeed = 7f;
+        canFire = true;
+        canBoost = false;
+        isBoosting = false;
+    }
+
+    public bool canFire, canBoost, isBoosting;
     private GameObject activeBomb;
+    public Image boostButtonImage;
     private float bombAreaRadiusToSend, pieceDropTime;
     private void Update()
     {
@@ -32,7 +46,8 @@ public class PlayerController : MonoBehaviour
 
         rb2d.velocity = direction;
 
-        if (CnInputManager.GetButtonDown("Jump"))
+
+        if (CnInputManager.GetButtonDown("Jump") && canFire)
         {
             // bomba bırakıldığı zaman player'ın score'una göre oluşucak circle collider'ın radiusunu belirler 
 
@@ -41,24 +56,48 @@ public class PlayerController : MonoBehaviour
 
             //bırakılacak bombayı oluşturur
             activeBomb = dropBehaviour.DropItem("Bomb", transform.position, Quaternion.identity, bombAreaRadiusToSend);
+            StartCoroutine(FireCooldown());
             
         }
-        // TODO - Ali boost should be down to a limit of total score
-        else if (CnInputManager.GetButton("Fire2") && pieceDropTime > 0.3f && rb2d.velocity != Vector2.zero )
+        else if (CnInputManager.GetButton("Fire2") && pieceDropTime > 0.3f && rb2d.velocity != Vector2.zero && canBoost)
         {
             pieceDropTime = 0f;
             dropBehaviour.DropItem("Piece", transform.position, Quaternion.identity);
+            playerScoreBehaviour.DropScore(4);
+            
         }
-        if (CnInputManager.GetButtonDown("Fire2"))
-        {
-            movementSpeed *= 2f;
-        }
-        if (CnInputManager.GetButtonUp("Fire2"))
+        else if (CnInputManager.GetButton("Fire2") && isBoosting && !canBoost)
         {
             movementSpeed /= 2f;
+            isBoosting = false;
+        }
+        if (CnInputManager.GetButtonDown("Fire2") && canBoost)
+        {
+            isBoosting = true;
+            movementSpeed *= 2f;
+        }
+
+        if (CnInputManager.GetButtonUp("Fire2"))
+        {
+            if (isBoosting)
+            {
+                movementSpeed /= 2f;
+            }
+        }
+
+        if (playerRef.GetScore() > 20)
+        {
+            canBoost = true;
+            boostButtonImage.color = new Color(255f, 255f, 255f, 1f);
+        }
+        else
+        {
+            canBoost = false;
+            boostButtonImage.color = new Color(255f, 255f, 255f, 0.2f);
         }
     }
 
+    
     private int scoreRef;
     private float CalculateBombRadius()
     {
@@ -75,5 +114,12 @@ public class PlayerController : MonoBehaviour
         {
             return 22f;
         }
+    }
+
+     private IEnumerator FireCooldown()
+    {
+        canFire = false;
+        yield return new WaitForSeconds(3f);
+        canFire = true;
     }
 }

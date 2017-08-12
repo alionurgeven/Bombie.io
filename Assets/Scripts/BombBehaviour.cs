@@ -34,7 +34,7 @@ public class BombBehaviour : MonoBehaviour
 
     // Bombanın patlamadan önce yanıp sönme animasyonu
 
-    Vector3 maximumScale, minimumScale;
+    private Vector3 maximumScale, minimumScale;
     private IEnumerator BombAreaBehavior()
     {
         bombAreaTransform.DOScale(maximumScale, 0.5f);
@@ -56,7 +56,9 @@ public class BombBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.name);
-        other.GetComponent<IKillable>().Die();
+        if (!other.CompareTag("Piece"))
+        {
+            other.GetComponent<IKillable>().Die();
+        }
     }
 }

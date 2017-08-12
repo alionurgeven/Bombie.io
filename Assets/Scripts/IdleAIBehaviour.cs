@@ -75,13 +75,14 @@ public class IdleAIBehaviour : MonoBehaviour, IKillable
         }
     }
 
+    private GameObject activePiece;
     void IKillable.Die()
     {
-        Debug.Log("asdasd");
         Destroy(this.gameObject);
         for (int i = 0; i < Random.Range(1,6); i++)
         {
-            PoolManager.Instance.Spawn("DroppedPieces", transform.position, Quaternion.identity);
+            activePiece = PoolManager.Instance.Spawn("DroppedPieces", transform.position, Quaternion.identity);
+            activePiece.GetComponent<PieceBehavior>().PopPiece( Vector2.up * Random.Range(0,10) + Vector2.right * Random.Range(0,10));
         }
     }
 }

@@ -1,25 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 interface IScoreBehavior
 {
-    void AddExperience(int increaseAmount);
+    void AddScore(int increaseAmount);
+    void DropScore(int decreaseAmount);
 }
 
 public class Player : MonoBehaviour,IScoreBehavior, IKillable {
 
     [SerializeField]
     private int score;
+    
+    public Text PlayerScoreText;
 
     private void OnEnable()
     {
+        //TODO ALi StartBigger score ayaralaması
         score = 0;
+        PlayerScoreText.text = "" + score;
     }
 
-    void IScoreBehavior.AddExperience(int increaseAmount)
+    void IScoreBehavior.AddScore(int increaseAmount)
     {
         score += increaseAmount;
+        PlayerScoreText.text = "" + score;
+    }
+
+    void IScoreBehavior.DropScore(int decreaseAmount)
+    {
+        score -= decreaseAmount;
+        PlayerScoreText.text = "" + score;
     }
 
     void IKillable.Die()
