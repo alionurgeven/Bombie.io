@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 50790347455364412}
   - component: {fileID: 114509411722289256}
   - component: {fileID: 58096831553945470}
+  - component: {fileID: 114700109509999342}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,9 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 6
-  bombPrefab: {fileID: 1784816781702338, guid: e7e451645cd3bb145b4728370fcc0ef6, type: 2}
-  piecePrefab: {fileID: 1000459729439110, guid: b333dd1f6870f964380e574fe28c381d,
-    type: 2}
 --- !u!114 &114509411722289256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,6 +132,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 729fa02e52d009142b7b66d19ca5ca8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114700109509999342
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1925507389859086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cec43aa771581247974377bbaa8da0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
 --- !u!212 &212222155579711508
 SpriteRenderer:
   m_ObjectHideFlags: 1

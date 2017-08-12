@@ -23,8 +23,8 @@ public class BombBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        Invoke("OpenExplosionCollider", 2.8f);
-        Destroy(gameObject, 3.0f);
+        bombCollider.enabled = false;
+        bombCollider.radius = 1;
     }
 
     private void OpenExplosionCollider()
@@ -46,8 +46,12 @@ public class BombBehaviour : MonoBehaviour
         bombAreaTransform.DOScale(minimumScale, 0.5f);
         yield return new WaitForSeconds(0.5f);
         bombAreaTransform.DOScale(maximumScale, 0.5f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
+        OpenExplosionCollider();
+        yield return new WaitForSeconds(0.2f);
         bombAreaTransform.DOScale(minimumScale,0f);
+        StopAllCoroutines();
+        PoolManager.Instance.Despawn(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

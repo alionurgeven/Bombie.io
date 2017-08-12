@@ -7,19 +7,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float movementSpeed;
 
-    [SerializeField]
-    private GameObject bombPrefab;
-
-    [SerializeField]
-    private GameObject piecePrefab;
-
     private Rigidbody2D rb2d;
     private DropBehaviour dropBehaviour;
+    private Player playerRef;
 
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         dropBehaviour = GetComponent<DropBehaviour>();
+        playerRef = GetComponent<Player>();
     }
 
     private GameObject activeBomb;
@@ -41,19 +37,17 @@ public class PlayerController : MonoBehaviour
             // bomba bırakıldığı zaman player'ın score'una göre oluşucak circle collider'ın radiusunu belirler 
 
             // TODO - Ali player scoreları geldiği zaman ona göre ayarlı olan bir radius denklemine göre dengele
-            bombAreaRadiusToSend = Random.Range(1f,10f);
+            bombAreaRadiusToSend = CalculateBombRadius();
 
             //bırakılacak bombayı oluşturur
-            activeBomb = dropBehaviour.DropItem(bombPrefab, transform.position, Quaternion.identity);
-
-            //bombanın radiusunu set eder
-            activeBomb.GetComponent<BombBehaviour>().SetColliderSize(bombAreaRadiusToSend);
+            activeBomb = dropBehaviour.DropItem("Bomb", transform.position, Quaternion.identity, bombAreaRadiusToSend);
+            
         }
         // TODO - Ali boost should be down to a limit of total score
         else if (CnInputManager.GetButton("Fire2") && pieceDropTime > 0.3f && rb2d.velocity != Vector2.zero )
         {
             pieceDropTime = 0f;
-            dropBehaviour.DropItem(piecePrefab, transform.position, Quaternion.identity);
+            dropBehaviour.DropItem("Piece", transform.position, Quaternion.identity);
         }
         if (CnInputManager.GetButtonDown("Fire2"))
         {
@@ -65,5 +59,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    private int scoreRef;
+    private float CalculateBombRadius()
+    {
+        scoreRef = playerRef.GetScore();
+        if (scoreRef < 50)
+        {
+            return 2f;
+        }
+        else if (scoreRef >= 50 && scoreRef <= 550)
+        {
+            return scoreRef * (2f / 50f);
+        }
+        else
+        {
+            return 22f;
+        }
+    }
 }
