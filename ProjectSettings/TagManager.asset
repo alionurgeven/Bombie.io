@@ -4,12 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-<<<<<<< HEAD
+  - Undefined
   - Bomb
   - Piece
-=======
   - Bomber
->>>>>>> fe4491d8f0c914992f5240626be5a7206e469b78
   layers:
   - Default
   - TransparentFX

@@ -2,8 +2,13 @@
 
 using System.Collections.Generic;
 
+interface IKillable
+{
+    void Die();
+}
+
 [RequireComponent(typeof(DropBehaviour))]
-public class IdleAIBehaviour : MonoBehaviour
+public class IdleAIBehaviour : MonoBehaviour, IKillable
 {
     [SerializeField]
     private float maxDistanceSqrFromBombers;
@@ -21,9 +26,9 @@ public class IdleAIBehaviour : MonoBehaviour
     {
         // TODO(Anil): Get all bombers from GameManager or something
         bomberTransforms = new List<Transform>();
-        bomberTransforms.Add(GameObject.Find("Player").transform);
+        bomberTransforms.Add(GM.Instance.Player.transform);
 
-        InvokeRepeating("GetClosestBomber", 0, 0.1f);
+        InvokeRepeating("GetClosestBomber", 0, 0.05f);
     }
 
     private void FixedUpdate()
@@ -41,7 +46,7 @@ public class IdleAIBehaviour : MonoBehaviour
             // TODO(Anil): PoolManager integration
             Destroy(gameObject);
 
-            // TODO(Anil): Kill bomber
+            collision.GetComponent<IKillable>().Die();
         }
     }
 
@@ -67,6 +72,16 @@ public class IdleAIBehaviour : MonoBehaviour
                 bomberToFollow = closestTransform;
                 Debug.Log("Bomber entered to the idle ai range.");
             }
+        }
+    }
+
+    void IKillable.Die()
+    {
+        Debug.Log("asdasd");
+        Destroy(this.gameObject);
+        for (int i = 0; i < Random.Range(1,6); i++)
+        {
+            PoolManager.Instance.Spawn("DroppedPieces", transform.position, Quaternion.identity);
         }
     }
 }

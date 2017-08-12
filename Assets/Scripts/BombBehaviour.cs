@@ -56,6 +56,7 @@ public class BombBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collided with: " + other.name);
+        Debug.Log(other.name);
+        other.GetComponent<IKillable>().Die();
     }
 }

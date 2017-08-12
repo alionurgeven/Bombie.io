@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+interface IScoreBehavior
+{
+    void AddExperience(int increaseAmount);
+}
+
+public class Player : MonoBehaviour,IScoreBehavior, IKillable {
 
     [SerializeField]
     private int score;
@@ -12,9 +17,14 @@ public class Player : MonoBehaviour {
         score = 0;
     }
 
-    public void AddScore(int increaseAmount)
+    void IScoreBehavior.AddExperience(int increaseAmount)
     {
         score += increaseAmount;
+    }
+
+    void IKillable.Die()
+    {
+        GM.Instance.EndGame();
     }
 
     public int GetScore()

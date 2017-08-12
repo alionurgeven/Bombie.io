@@ -24,9 +24,9 @@ public class PieceBehavior : MonoBehaviour {
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Bomber"))
         {
-            other.GetComponent<Player>().AddScore(2);
+            other.GetComponent<IScoreBehavior>().AddExperience(2);
             PoolManager.Instance.Despawn(this.gameObject);
         }
     }
