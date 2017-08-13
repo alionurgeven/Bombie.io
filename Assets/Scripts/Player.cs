@@ -18,8 +18,14 @@ public class Player : MonoBehaviour,IScoreBehavior, IKillable {
 
     private void OnEnable()
     {
-        //TODO ALi StartBigger score ayaralaması
-        score = 0;
+        if (GM.Instance.startedBigger)
+        {
+            score = 200;
+        }
+        else
+        {
+            score = 0;
+        }
         PlayerScoreText.text = "" + score;
     }
 
