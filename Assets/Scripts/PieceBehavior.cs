@@ -28,7 +28,7 @@ public class PieceBehavior : MonoBehaviour {
     {
         if (other.CompareTag("Bomber"))
         {
-            other.GetComponent<IScoreBehavior>().AddScore(2);
+            other.GetComponent<IScoreBehavior>().AddScore(10);
             PoolManager.Instance.Despawn(this.gameObject);
         }
     }

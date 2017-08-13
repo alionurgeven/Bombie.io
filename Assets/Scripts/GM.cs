@@ -58,6 +58,10 @@ public class GM : MonoBehaviour {
         Player.SetActive(true);
         MainMenu.SetActive(false);
         HUD.SetActive(true);
+        x = Random.Range(-MAX_MAP_BOUNDARY.x, MAX_MAP_BOUNDARY.x);
+        y = Random.Range(-MAX_MAP_BOUNDARY.y, MAX_MAP_BOUNDARY.y);
+        spawnPosition = Vector3.right * x + Vector3.up * y;
+        Player.transform.position = spawnPosition;
     }
     
     public void EndGame()

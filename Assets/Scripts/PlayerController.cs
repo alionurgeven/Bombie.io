@@ -106,13 +106,13 @@ public class PlayerController : MonoBehaviour
         {
             return 2f;
         }
-        else if (scoreRef >= 50 && scoreRef <= 550)
+        else if (scoreRef >= 50 && scoreRef <= 200)
         {
             return scoreRef * (2f / 50f);
         }
         else
         {
-            return 22f;
+            return 8f;
         }
     }
 

@@ -25,6 +25,7 @@ public class BombBehaviour : MonoBehaviour
     {
         bombCollider.enabled = false;
         bombCollider.radius = 1;
+        bombAreaTransform.localScale = Vector3.one;
     }
 
     private void OpenExplosionCollider()

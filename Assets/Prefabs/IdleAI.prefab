@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3b7a2c7d052064fb1ac77dfa2a71ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistanceSqrFromBombers: 7
+  maxDistanceSqrFromBombers: 14
 --- !u!212 &212630086119085164
 SpriteRenderer:
   m_ObjectHideFlags: 1
